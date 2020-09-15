@@ -8,9 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import static utils.CommonsConstant.PATHNAME;
+
 public class ITextTestEx {
 
-    public static final String PATHNAME_FILE = "results/book.pdf";
+    private static final String FILENAME = "book.pdf";
     public static final String FONT = "malgun.ttf";
     public static final int FONT_TITLE_SIZE = 12;
     public static final int FONT_ROWS_SIZE = 10;
@@ -28,7 +30,7 @@ public class ITextTestEx {
 
         Document document = new com.itextpdf.text.Document(PageSize.A4);
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(new File(PATHNAME_FILE)));
+            PdfWriter.getInstance(document, new FileOutputStream(new File(PATHNAME + FILENAME)));
 
             document.open();
             BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
