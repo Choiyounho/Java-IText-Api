@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import static utils.CommonsConstant.PATHNAME;
+import static utils.CommonsConstant.*;
 
 public class InsertAnImageInPdf {
 
@@ -21,12 +21,10 @@ public class InsertAnImageInPdf {
             PdfWriter.getInstance(document, new FileOutputStream(PATHNAME + FILENAME));
             document.open();
 
-            String imageName = "results/github-octocat.png";
-            Image image = Image.getInstance(imageName);
+            Image image = Image.getInstance(IMAGENAME);
             document.add(image);
 
-            String url = "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMTVfMjc4/MDAxNTc2NDE0MTAwNjg1.cp_9N4gi8GOe7idQjx6pC1LUhK9EqpIs9uArKqZq6iUg.1vF6bTjG3vJW4mb_WagZ5gh0gfwjoo2bznBTEs-tyXkg.JPEG.nilsine11202/github.jpg?type=w800";
-            image = Image.getInstance(url);
+            image = Image.getInstance(IMAGE_URL);
             document.add(image);
 
             System.out.println("ImageDemo.pdf 파일 생성 완료");
