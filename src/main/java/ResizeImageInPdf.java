@@ -35,7 +35,7 @@ public class ResizeImageInPdf {
             image.scaleAbsolute(100f, 200f);
             document.add(image);
 
-            System.out.println("크기 절 성공!!");
+            System.out.println("크기 조절 성공!!");
 
 
         } catch (DocumentException e) {
