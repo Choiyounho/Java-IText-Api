@@ -37,7 +37,6 @@ public class MakeParagraph {
                 paragraph1.add(new Chunk(content));
             }
             document.add(paragraph1);
-            document.close();
 
             System.out.println("paragraphDemo.pdf 생성완료");
 
@@ -47,6 +46,8 @@ public class MakeParagraph {
             System.out.println("DocumentException e" + e.getMessage());
         } catch (Exception e) {
             System.out.println("Exception e" + e.getMessage());
+        } finally {
+            document.close();
         }
 
     }
