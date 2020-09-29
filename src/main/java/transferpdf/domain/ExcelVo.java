@@ -1,3 +1,5 @@
+package transferpdf.domain;
+
 public class ExcelVo {
 
     private String title;
@@ -7,7 +9,6 @@ public class ExcelVo {
     private String imageUrl;
 
     public ExcelVo(String title, String author, String company, String isbn, String imageUrl) {
-        super();
         this.title = title;
         this.author = author;
         this.company = company;
@@ -19,6 +20,15 @@ public class ExcelVo {
         this.title = title;
         this.author = author;
         this.company = company;
+    }
+
+    public static ExcelVo print(String[] cellArr) {
+        String title = cellArr[0];
+        String author = cellArr[1];
+        String company = cellArr[2];
+        String isbn = cellArr[3];
+        String imageUrl = cellArr[4];
+        return new ExcelVo(title, author, company, isbn, imageUrl);
     }
 
     public String getAuthor() {
@@ -33,25 +43,14 @@ public class ExcelVo {
         return company;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public String getImageUrl() {
         return "input/" + imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     @Override
     public String toString() {
-        return "console.domain.ExcelVo{" +
+        return "console.transfer.domain.transfer.domain.ExcelVo{" +
                 "title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", company='" + company + '\'' +

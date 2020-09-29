@@ -1,12 +1,16 @@
+package transferpdf;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import transferpdf.domain.ExcelVo;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import transferpdf.view.TransferView;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -20,6 +24,7 @@ public class ExcelTransferPdf {
 
     private static final String INPUT_FILENAME = "input/isbn.xls";
     private static final String OUTPUT_FILENAME = "bookList.pdf";
+    public static final int COLUMN_COUNT = 5;
 
     public static void main(String[] args) {
 
@@ -29,19 +34,14 @@ public class ExcelTransferPdf {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rows = sheet.rowIterator();
             rows.next();
-            String[] cellArr = new String[5];
+            String[] cellArr = new String[COLUMN_COUNT];
             while (rows.hasNext()) {
                 Row row = rows.next();
                 Iterator<Cell> cells = row.cellIterator();
                 int i = 0;
-                while (cells.hasNext()) {
-                    Cell cell = cells.next();
-                    cellArr[i] = cell.toString();
-                    i++;
-                    if (i == 5) break;
-                }
-                ExcelVo vo = new ExcelVo(cellArr[0], cellArr[1], cellArr[2], cellArr[3], cellArr[4]);
-                data.add(vo);
+                TransferView.readCell(cells, cellArr, i);
+                ExcelVo print = ExcelVo.print(cellArr);
+                data.add(print);
             }
             pdfMaker(data);
         } catch (FileNotFoundException e) {
@@ -50,7 +50,7 @@ public class ExcelTransferPdf {
             System.out.println("IOException e " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Exception e " + e.getMessage());
-    }
+        }
     }
 
     private static void pdfMaker(List<ExcelVo> data) {
@@ -108,6 +108,7 @@ public class ExcelTransferPdf {
             document.close();
         }
     }
+
 }
 
 

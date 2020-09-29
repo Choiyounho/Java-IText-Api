@@ -39,14 +39,10 @@ public class ResizeImageInPdf {
 
 
         } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            System.out.println("DocumentException e" + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e ) {
+            System.out.println("IOException e " + e.getMessage());
+        } catch (Exception e) {
             System.out.println("Exception e" + e.getMessage());
         } finally {
             document.close();
