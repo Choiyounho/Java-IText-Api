@@ -7,16 +7,16 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import static utils.CommonsConstant.PATHNAME;
+import static utils.CommonsConstant.ROOT_DIRECTORY;
 
-public class MakeParagraph {
+public class MakeParagraphEx {
 
     private static final String FILENAME = "paragraphDemo.pdf";
 
     public static void main(String[] args) {
         Document document = new Document();
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(PATHNAME + FILENAME);
+            FileOutputStream fileOutputStream = new FileOutputStream(ROOT_DIRECTORY + FILENAME);
             PdfWriter.getInstance(document, fileOutputStream);
             document.open();
 
@@ -49,6 +49,6 @@ public class MakeParagraph {
         } finally {
             document.close();
         }
-
     }
+
 }

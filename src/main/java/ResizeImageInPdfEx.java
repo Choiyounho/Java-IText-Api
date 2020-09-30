@@ -3,21 +3,19 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import static utils.CommonsConstant.*;
 
-public class ResizeImageInPdf {
+public class ResizeImageInPdfEx {
 
     private static final String FILENAME = "ImageScaling.pdf";
 
     public static void main(String[] args) {
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(PATHNAME + FILENAME));
+            PdfWriter.getInstance(document, new FileOutputStream(ROOT_DIRECTORY + FILENAME));
             document.open();
 
             Image image = Image.getInstance(IMAGENAME);
@@ -37,7 +35,6 @@ public class ResizeImageInPdf {
 
             System.out.println("크기 조절 성공!!");
 
-
         } catch (DocumentException e) {
             System.out.println("DocumentException e" + e.getMessage());
         } catch (IOException e) {
@@ -48,4 +45,5 @@ public class ResizeImageInPdf {
             document.close();
         }
     }
+
 }

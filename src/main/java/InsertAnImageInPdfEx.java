@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 
 import static utils.CommonsConstant.*;
 
-public class InsertAnImageInPdf {
+public class InsertAnImageInPdfEx {
 
     private static final String FILENAME = "ImageDemo.pdf";
 
@@ -18,7 +18,7 @@ public class InsertAnImageInPdf {
         Document document = new Document();
 
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(PATHNAME + FILENAME));
+            PdfWriter.getInstance(document, new FileOutputStream(ROOT_DIRECTORY + FILENAME));
             document.open();
 
             Image image = Image.getInstance(IMAGENAME);

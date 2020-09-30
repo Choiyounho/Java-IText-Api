@@ -8,16 +8,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import static utils.CommonsConstant.PATHNAME;
+import static utils.CommonsConstant.ROOT_DIRECTORY;
+
 
 public class ITextTestEx {
 
     private static final String FILENAME = "book.pdf";
-    public static final String FONT = "malgun.ttf";
-    public static final int FONT_TITLE_SIZE = 12;
-    public static final int FONT_ROWS_SIZE = 10;
-    public static final int TABLE_NUM_COLUMNS = 4;
-    public static final int TABLE_WIDTH = 100;
+    private static final String FONT = "malgun.ttf";
+    private static final int FONT_TITLE_SIZE = 12;
+    private static final int FONT_ROWS_SIZE = 10;
+    private static final int TABLE_NUM_COLUMNS = 4;
+    private static final int TABLE_WIDTH = 100;
 
     public static void main(String[] args) {
 
@@ -30,7 +31,7 @@ public class ITextTestEx {
 
         Document document = new com.itextpdf.text.Document(PageSize.A4);
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(new File(PATHNAME + FILENAME)));
+            PdfWriter.getInstance(document, new FileOutputStream(new File(ROOT_DIRECTORY + FILENAME)));
 
             document.open();
             BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
@@ -80,7 +81,6 @@ public class ITextTestEx {
             document.add(pdfPTable);
             System.out.println("table 생성 완료");
 
-
         } catch (DocumentException e) {
             System.out.println("DocumentException e : " + e.getMessage());
         } catch (FileNotFoundException e) {
@@ -91,4 +91,5 @@ public class ITextTestEx {
             document.close();
         }
     }
+
 }

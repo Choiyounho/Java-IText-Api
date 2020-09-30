@@ -26,6 +26,8 @@ public class TransferPdfController {
     private static final String FILENAME = "bookList.pdf";
     private static final int COLUMN_COUNT = 5;
     private static final String[] TABLE_TITLE = {"제목", "저자", "출판사", "이미지"};
+    private static final String FONT = "malgun.ttf";
+
 
     public void transferExcel() {
 
