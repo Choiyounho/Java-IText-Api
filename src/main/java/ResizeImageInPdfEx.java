@@ -18,20 +18,15 @@ public class ResizeImageInPdfEx {
             PdfWriter.getInstance(document, new FileOutputStream(ROOT_DIRECTORY + FILENAME));
             document.open();
 
-            Image image = Image.getInstance(IMAGENAME);
-            document.add(image);
+            addImage(document, IMAGENAME);
 
-            image = Image.getInstance(IMAGENAME);
-            image.scaleAbsolute(200f, 200f);
-            document.add(image);
+            scalingWidthAndHeight(document, IMAGENAME, 200f, 200f);
 
-            image = Image.getInstance(IMAGE_URL);
-            image.scalePercent(200f);
-            document.add(image);
+            scalingPercent(document, IMAGE_URL, 200f);
 
-            image = Image.getInstance(IMAGE_URL);
-            image.scaleAbsolute(100f, 200f);
-            document.add(image);
+            scalingWidthAndHeight(document, IMAGE_URL, 200f, 200f);
+
+            scalingWidthAndHeight(document, IMAGE_URL, 100f, 200f);
 
             System.out.println("크기 조절 성공!!");
 
@@ -39,11 +34,30 @@ public class ResizeImageInPdfEx {
             System.out.println("DocumentException e" + e.getMessage());
         } catch (IOException e) {
             System.out.println("IOException e " + e.getMessage());
-        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (Exception e ) {
             System.out.println("Exception e" + e.getMessage());
         } finally {
             document.close();
         }
+    }
+
+    private static void addImage(Document document, String imageName) throws IOException, DocumentException {
+        Image image = Image.getInstance(imageName);
+        document.add(image);
+    }
+
+    private static void scalingWidthAndHeight(Document document, String imageName, float width, float height) throws IOException, DocumentException {
+        Image image = Image.getInstance(imageName);
+        image.scaleAbsolute(width, height);
+        document.add(image);
+    }
+
+    private static void scalingPercent(Document document, String imageName, float percent) throws IOException, DocumentException {
+        Image image;
+        image = Image.getInstance(imageName);
+        image.scalePercent(percent);
+        document.add(image);
     }
 
 }
