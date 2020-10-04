@@ -8,18 +8,12 @@ public class ExcelVo {
     private String isbn;
     private String imageUrl;
 
-    public ExcelVo(String title, String author, String company, String isbn, String imageUrl) {
+    private ExcelVo(String title, String author, String company, String isbn, String imageUrl) {
         this.title = title;
         this.author = author;
         this.company = company;
         this.isbn = isbn;
         this.imageUrl = imageUrl;
-    }
-
-    public ExcelVo(String title, String author, String company) {
-        this.title = title;
-        this.author = author;
-        this.company = company;
     }
 
     public static ExcelVo print(String[] cellArr) {
@@ -46,7 +40,6 @@ public class ExcelVo {
     public String getImageUrl() {
         return "input/" + imageUrl;
     }
-
 
     @Override
     public String toString() {
