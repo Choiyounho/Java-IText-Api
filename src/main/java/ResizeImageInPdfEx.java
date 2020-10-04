@@ -10,26 +10,31 @@ import static utils.CommonsConstant.*;
 
 public class ResizeImageInPdfEx {
 
-    private static final String FILENAME = "ImageScaling.pdf";
+    private static final String FILENAME = "ImageResize.pdf";
+    private static final Float SIZE_200 = 200f;
+    private static final Float SIZE_100 = 100f;
 
     public static void main(String[] args) {
-        Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream(ROOT_DIRECTORY + FILENAME));
             document.open();
 
-            addImage(document, IMAGENAME);
+            Image originalOctocat = getInstance(IMAGE_OCTOCAT);
+            addDocument(document, originalOctocat);
 
-            scalingWidthAndHeight(document, IMAGENAME, 200f, 200f);
+            Image resizeOctocat = resizeWidthAndHeight(IMAGE_OCTOCAT, SIZE_200, SIZE_200);
+            addDocument(document, resizeOctocat);
 
-            scalingPercent(document, IMAGE_URL, 200f);
+            Image originalGithubLogo = resizePercent(IMAGE_GITHUB_LOGO, SIZE_100);
+            addDocument(document, originalGithubLogo);
 
-            scalingWidthAndHeight(document, IMAGE_URL, 200f, 200f);
+            Image resizeGithubLogo1 = resizeWidthAndHeight(IMAGE_GITHUB_LOGO, SIZE_200, SIZE_200);
+            addDocument(document, resizeGithubLogo1);
 
-            scalingWidthAndHeight(document, IMAGE_URL, 100f, 200f);
+            Image resizeGithubLogo2 = resizeWidthAndHeight(IMAGE_GITHUB_LOGO, SIZE_100, SIZE_200);
+            addDocument(document, resizeGithubLogo2);
 
             System.out.println("크기 조절 성공!!");
-
         } catch (DocumentException e) {
             System.out.println("DocumentException e" + e.getMessage());
         } catch (IOException e) {
@@ -42,21 +47,23 @@ public class ResizeImageInPdfEx {
         }
     }
 
-    private static void addImage(Document document, String imageName) throws IOException, DocumentException {
-        Image image = Image.getInstance(imageName);
-        document.add(image);
+    private static Image getInstance(String imageName) throws IOException, DocumentException {
+        return Image.getInstance(imageName);
     }
 
-    private static void scalingWidthAndHeight(Document document, String imageName, float width, float height) throws IOException, DocumentException {
+    private static Image resizeWidthAndHeight(String imageName, float width, float height) throws IOException, DocumentException {
         Image image = Image.getInstance(imageName);
         image.scaleAbsolute(width, height);
-        document.add(image);
+        return image;
     }
 
-    private static void scalingPercent(Document document, String imageName, float percent) throws IOException, DocumentException {
-        Image image;
-        image = Image.getInstance(imageName);
+    private static Image resizePercent(String imageName, float percent) throws IOException, DocumentException {
+        Image image = Image.getInstance(imageName);
         image.scalePercent(percent);
+        return image;
+    }
+
+    private static void addDocument(Document document, Image image) throws DocumentException {
         document.add(image);
     }
 
