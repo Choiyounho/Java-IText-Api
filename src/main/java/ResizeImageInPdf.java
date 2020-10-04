@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static utils.CommonsConstant.*;
 
-public class ResizeImageInPdfEx {
+public class ResizeImageInPdf {
 
     private static final String FILENAME = "ImageResize.pdf";
     private static final Float SIZE_200 = 200f;

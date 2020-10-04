@@ -26,5 +26,8 @@ public class CommonsConstant {
     public static final String IMAGE = "사진";
     public static final String[] TABLE_TITLE = new String[]{TITLE, AUTHOR, COMPANY, IMAGE};
 
+    public static final int NUMBER_ZERO = 0;
+    public static final int NUMBER_TEN = 10;
+    public static final int NUMBER_TWENTY = 20;
 
 }

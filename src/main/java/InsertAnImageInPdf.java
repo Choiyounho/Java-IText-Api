@@ -1,4 +1,3 @@
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -10,25 +9,22 @@ import java.net.MalformedURLException;
 
 import static utils.CommonsConstant.*;
 
-public class InsertAnImageInPdfEx {
+public class InsertAnImageInPdf {
 
     private static final String FILENAME = "ImageDemo.pdf";
 
     public static void main(String[] args) {
-        Document document = new Document();
-
         try {
             PdfWriter.getInstance(document, new FileOutputStream(ROOT_DIRECTORY + FILENAME));
             document.open();
 
-            Image image = Image.getInstance(IMAGENAME);
+            Image image = Image.getInstance(IMAGE_OCTOCAT);
             document.add(image);
 
-            image = Image.getInstance(IMAGE_URL);
+            image = Image.getInstance(IMAGE_GITHUB_LOGO);
             document.add(image);
 
             System.out.println("ImageDemo.pdf 파일 생성 완료");
-
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFoundException e" + e.getMessage());
         } catch (DocumentException e) {
