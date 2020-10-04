@@ -1,4 +1,4 @@
-package transferpdf.domain;
+package pdf.domain;
 
 public class ExcelVo {
 

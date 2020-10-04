@@ -1,4 +1,4 @@
-package transferpdf.view;
+package pdf.view;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Font;
@@ -7,7 +7,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.apache.poi.ss.usermodel.Cell;
-import transferpdf.domain.ExcelVo;
+import pdf.domain.ExcelVo;
 
 import java.io.IOException;
 import java.util.Iterator;

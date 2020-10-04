@@ -1,6 +1,6 @@
-package transferpdf;
+package pdf.application;
 
-import transferpdf.controller.TransferPdfController;
+import pdf.controller.TransferPdfController;
 
 public class ExcelTransferPdf {
 

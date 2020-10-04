@@ -1,15 +1,17 @@
+package pdf.application;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import pdf.domain.DocumentGenerator;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import static utils.CommonsConstant.*;
-
+import static pdf.domain.DocumentGenerator.documentIsA4;
+import static pdf.utils.CommonsConstant.*;
 
 public class PdfExample {
 
@@ -28,9 +30,9 @@ public class PdfExample {
         };
 
         try {
-            PdfWriter.getInstance(documentIsA4, new FileOutputStream(new File(ROOT_DIRECTORY + FILENAME)));
+            getPdfInstance(documentIsA4, createFileOutputStream(FILENAME));
 
-            documentIsA4.open();
+            DocumentGenerator.openDocumentA4();
             BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             Font fontTitle = new Font(baseFont, FONT_TITLE_SIZE);
             Font fontRows = new Font(baseFont, FONT_ROWS_SIZE);
@@ -85,8 +87,16 @@ public class PdfExample {
         } catch (Exception e) {
             System.out.println("Exception e" + e.getMessage());
         } finally {
-            documentIsA4.close();
+            DocumentGenerator.closeDocumentA4();
         }
+    }
+
+    public static void getPdfInstance(Document document, FileOutputStream fileOutputStream) throws DocumentException, FileNotFoundException {
+        PdfWriter.getInstance(document, fileOutputStream);
+    }
+
+    public static FileOutputStream createFileOutputStream(String fileName) throws FileNotFoundException {
+        return new FileOutputStream(ROOT_DIRECTORY + fileName);
     }
 
 }

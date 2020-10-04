@@ -1,14 +1,18 @@
+package pdf.application;
+
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
+import pdf.domain.DocumentGenerator;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static utils.CommonsConstant.*;
+import static pdf.application.PdfExample.createFileOutputStream;
+import static pdf.application.PdfExample.getPdfInstance;
+import static pdf.utils.CommonsConstant.*;
+import static pdf.domain.DocumentGenerator.document;
 
 public class MakeParagraph {
 
@@ -19,9 +23,8 @@ public class MakeParagraph {
 
     public static void main(String[] args) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(ROOT_DIRECTORY + FILENAME);
-            PdfWriter.getInstance(document, fileOutputStream);
-            document.open();
+            getPdfInstance(document, createFileOutputStream(FILENAME));
+            DocumentGenerator.openDocument();
 
             String content = "My favorite food! ";
             Paragraph spacing = newInstance();
@@ -35,13 +38,13 @@ public class MakeParagraph {
             System.out.println("paragraphDemo.pdf Created !");
 
         } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException e" + e.getMessage());
+            System.out.println("FileNotFoundException e " + e.getMessage());
         } catch (DocumentException e) {
-            System.out.println("DocumentException e" + e.getMessage());
+            System.out.println("DocumentException e " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Exception e" + e.getMessage());
+            System.out.println("Exception e " + e.getMessage());
         } finally {
-            document.close();
+            DocumentGenerator.closeDocument();
         }
     }
 
