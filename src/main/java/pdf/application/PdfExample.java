@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import pdf.domain.DocumentGenerator;
+import pdf.domain.FontGenerator;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,8 +17,6 @@ import static pdf.utils.CommonsConstant.*;
 public class PdfExample {
 
     private static final String FILENAME = "book.pdf";
-    private static final int FONT_TITLE_SIZE = 12;
-    private static final int FONT_ROWS_SIZE = 10;
     private static final int TABLE_NUM_COLUMNS = 4;
     private static final int TABLE_WIDTH = 100;
 
@@ -33,11 +32,11 @@ public class PdfExample {
             getPdfInstance(documentIsA4, createFileOutputStream(FILENAME));
 
             DocumentGenerator.openDocumentA4();
-            BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            Font fontTitle = new Font(baseFont, FONT_TITLE_SIZE);
-            Font fontRows = new Font(baseFont, FONT_ROWS_SIZE);
 
-            PdfPTable pdfPTable = new PdfPTable(TABLE_NUM_COLUMNS);
+            Font fontTitle = FontGenerator.createFontSize(FONT_TITLE_SIZE);
+            Font fontRows = FontGenerator.createFontSize(FONT_ROWS_SIZE);
+
+            PdfPTable pdfPTable = PdfExample.createPdfTable(TABLE_NUM_COLUMNS);
             pdfPTable.setWidthPercentage(TABLE_WIDTH);
 
             float[] colWidth = new float[]{20f, 15f, 15f, 30f};
@@ -79,7 +78,6 @@ public class PdfExample {
             documentIsA4.addTitle("PDF Table Demo");
             documentIsA4.add(pdfPTable);
             System.out.println("table 생성 완료");
-
         } catch (DocumentException e) {
             System.out.println("DocumentException e : " + e.getMessage());
         } catch (FileNotFoundException e) {
@@ -97,6 +95,10 @@ public class PdfExample {
 
     public static FileOutputStream createFileOutputStream(String fileName) throws FileNotFoundException {
         return new FileOutputStream(ROOT_DIRECTORY + fileName);
+    }
+
+    public static PdfPTable createPdfTable(int columns) {
+        return new PdfPTable(columns);
     }
 
 }
