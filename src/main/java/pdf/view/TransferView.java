@@ -1,9 +1,6 @@
 package pdf.view;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Phrase;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.apache.poi.ss.usermodel.Cell;
@@ -15,12 +12,13 @@ import java.util.List;
 
 public class TransferView {
 
-    public static void createTable(String[] headers, Font fontHeader, PdfPTable table) {
-        for (String header : headers) {
-            PdfPCell cell = new PdfPCell();
-            cell.setGrayFill(0.9f);
-            cell.setPhrase(new Phrase(header.toUpperCase(), fontHeader));
-            table.addCell(cell);
+    public static void createCellTitle(String[] titles, Font fontTitle, PdfPTable pdfPTable) {
+        for (String title : titles) {
+            PdfPCell pdfPCell = new PdfPCell();
+            pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCell.setGrayFill(0.9f);
+            pdfPCell.setPhrase(new Phrase(title.toUpperCase(), fontTitle));
+            pdfPTable.addCell(pdfPCell);
         }
     }
 

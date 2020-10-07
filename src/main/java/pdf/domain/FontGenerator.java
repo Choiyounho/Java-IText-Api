@@ -11,11 +11,8 @@ import static pdf.utils.CommonsConstant.FONT;
 public class FontGenerator {
 
     public static Font createFontSize(int fontTitleSize) throws IOException, DocumentException {
-        return new Font(createFont(), fontTitleSize);
-    }
-
-    private static BaseFont createFont() throws DocumentException, IOException {
-        return BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        BaseFont baseFont = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        return new Font(baseFont, fontTitleSize);
     }
 
 }

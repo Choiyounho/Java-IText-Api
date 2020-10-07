@@ -40,15 +40,8 @@ public class TransferPdfController {
             rows.next();
             String[] cellArr = new String[COLUMN_COUNT];
 
-            while (rows.hasNext()) {
-                Row row = rows.next();
-                Iterator<Cell> cells = row.cellIterator();
-                int i = 0;
-                TransferView.readCell(cells, cellArr, i);
-                ExcelVo print = ExcelVo.print(cellArr);
-                data.add(print);
-            }
-            pdfMaker(data);
+            readRows(data, rows, cellArr);
+            makePdfFile(data);
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFoundException e " + e.getMessage());
         } catch (IOException e) {
@@ -58,16 +51,27 @@ public class TransferPdfController {
         }
     }
 
-    private static void pdfMaker(List<ExcelVo> data) {
+    private void readRows(List<ExcelVo> data, Iterator<Row> rows, String[] cellArr) {
+        while (rows.hasNext()) {
+            Row row = rows.next();
+            Iterator<Cell> cells = row.cellIterator();
+            int i = 0;
+            TransferView.readCell(cells, cellArr, i);
+            ExcelVo print = ExcelVo.print(cellArr);
+            data.add(print);
+        }
+    }
+
+    private static void makePdfFile(List<ExcelVo> data) {
         try {
             getPdfInstance(documentIsA4, createFileOutputStream(OUTPUT_FILENAME));
-            DocumentGenerator.openDocumentA4();
+            DocumentGenerator.openDocument(documentIsA4);
 
             Font fontHeader = FontGenerator.createFontSize(FONT_TITLE_SIZE);
             Font fontRow = FontGenerator.createFontSize(FONT_ROWS_SIZE);
 
             PdfPTable pdfPTable = PdfExample.createPdfTable(TABLE_TITLE.length);
-            TransferView.createTable(TABLE_TITLE, fontHeader, pdfPTable);
+            TransferView.createCellTitle(TABLE_TITLE, fontHeader, pdfPTable);
 
             pdfPTable.completeRow();
 
@@ -89,9 +93,8 @@ public class TransferPdfController {
         } catch (Exception e) {
             System.out.println("Exception e " + e.getMessage());
         } finally {
-            DocumentGenerator.closeDocumentA4();
+            DocumentGenerator.closeDocument(documentIsA4);
         }
     }
-
 
 }

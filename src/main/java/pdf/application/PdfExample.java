@@ -1,12 +1,12 @@
 package pdf.application;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import pdf.domain.DocumentGenerator;
 import pdf.domain.FontGenerator;
+import pdf.view.TransferView;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,7 +31,7 @@ public class PdfExample {
         try {
             getPdfInstance(documentIsA4, createFileOutputStream(FILENAME));
 
-            DocumentGenerator.openDocumentA4();
+            DocumentGenerator.openDocument(documentIsA4);
 
             Font fontTitle = FontGenerator.createFontSize(FONT_TITLE_SIZE);
             Font fontRows = FontGenerator.createFontSize(FONT_ROWS_SIZE);
@@ -42,38 +42,16 @@ public class PdfExample {
             float[] colWidth = new float[]{20f, 15f, 15f, 30f};
             pdfPTable.setWidths(colWidth);
 
-            for (String header : TABLE_TITLE) {
-                PdfPCell pdfPCell = new PdfPCell();
-                pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                pdfPCell.setGrayFill(0.9f);
-                pdfPCell.setPhrase(new Phrase(header, fontTitle));
-                pdfPTable.addCell(pdfPCell);
-            }
+            TransferView.createCellTitle(TABLE_TITLE, fontTitle, pdfPTable);
             pdfPTable.completeRow();
 
-            for (String[] row : rows) {
-                for (String data : row) {
-                    Phrase phrase = new Phrase(data, fontRows);
-                    PdfPCell pdfPCell = new PdfPCell(phrase);
-                    pdfPCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                    pdfPCell.setPaddingTop(20);
-                    pdfPCell.setPaddingRight(30);
-                    pdfPCell.setPaddingBottom(20);
-                    pdfPCell.setPaddingLeft(30);
+            createRowsCell(rows, fontRows, pdfPTable);
 
-                    pdfPTable.addCell(pdfPCell);
-                }
-                pdfPTable.completeRow();
-            }
+            PdfPCell pdfPCell5 = newInstanceForPdfCell("Cell 5");
+            PdfPCell pdfPCell6 = newInstanceForPdfCell("Cell 6");
 
-            PdfPCell pdfPCell4 = new PdfPCell(new Phrase("Cell 5"));
-            pdfPCell4.setColspan(2);
-
-            PdfPCell pdfPCell5 = new PdfPCell(new Phrase("Cell 6"));
-            pdfPCell5.setColspan(2);
-
-            pdfPTable.addCell(pdfPCell4);
             pdfPTable.addCell(pdfPCell5);
+            pdfPTable.addCell(pdfPCell6);
 
             documentIsA4.addTitle("PDF Table Demo");
             documentIsA4.add(pdfPTable);
@@ -85,11 +63,38 @@ public class PdfExample {
         } catch (Exception e) {
             System.out.println("Exception e" + e.getMessage());
         } finally {
-            DocumentGenerator.closeDocumentA4();
+            DocumentGenerator.closeDocument(documentIsA4);
         }
     }
 
-    public static void getPdfInstance(Document document, FileOutputStream fileOutputStream) throws DocumentException, FileNotFoundException {
+    private static PdfPCell newInstanceForPdfCell(String cell) {
+        PdfPCell pdfPCell = new PdfPCell(new Phrase(cell));
+        pdfPCell.setColspan(2);
+        return pdfPCell;
+    }
+
+    private static void createRowsCell(String[][] rows, Font fontRows, PdfPTable pdfPTable) {
+        for (String[] row : rows) {
+            phrasePdfCell(fontRows, pdfPTable, row);
+            pdfPTable.completeRow();
+        }
+    }
+
+    private static void phrasePdfCell(Font fontRows, PdfPTable pdfPTable, String[] row) {
+        for (String data : row) {
+            Phrase phrase = new Phrase(data, fontRows);
+            PdfPCell pdfPCell = new PdfPCell(phrase);
+            pdfPCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            pdfPCell.setPaddingTop(20);
+            pdfPCell.setPaddingRight(30);
+            pdfPCell.setPaddingBottom(20);
+            pdfPCell.setPaddingLeft(30);
+
+            pdfPTable.addCell(pdfPCell);
+        }
+    }
+
+    public static void getPdfInstance(Document document, FileOutputStream fileOutputStream) throws DocumentException {
         PdfWriter.getInstance(document, fileOutputStream);
     }
 
