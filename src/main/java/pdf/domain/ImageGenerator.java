@@ -22,4 +22,5 @@ public class ImageGenerator {
         image.scalePercent(percent);
         return image;
     }
+
 }

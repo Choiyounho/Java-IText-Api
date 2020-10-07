@@ -22,7 +22,7 @@ public class ResizeImageInPdf {
     public static void main(String[] args) {
         try {
             getPdfInstance(document, createFileOutputStream(FILENAME));
-            DocumentGenerator.openDocument();
+            DocumentGenerator.openDocument(document);
 
             Image originalOctocat = ImageGenerator.getInstance(IMAGE_OCTOCAT);
             addDocument(document, originalOctocat);
@@ -47,7 +47,7 @@ public class ResizeImageInPdf {
         } catch (Exception e ) {
             System.out.println("Exception e" + e.getMessage());
         } finally {
-            DocumentGenerator.closeDocument();
+            DocumentGenerator.closeDocument(document);
         }
     }
 

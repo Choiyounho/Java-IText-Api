@@ -41,15 +41,4 @@ public class ExcelVo {
         return "input/" + imageUrl;
     }
 
-    @Override
-    public String toString() {
-        return "console.transfer.domain.transfer.domain.transferpdf.domain.ExcelVo{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", company='" + company + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", imageurl='" + imageUrl + '\'' +
-                '}';
-    }
-
 }

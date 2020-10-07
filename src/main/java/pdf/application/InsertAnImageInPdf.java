@@ -21,7 +21,7 @@ public class InsertAnImageInPdf {
     public static void main(String[] args) {
         try {
             getPdfInstance(document, createFileOutputStream(FILENAME));
-            DocumentGenerator.openDocument();
+            DocumentGenerator.openDocument(document);
 
             Image octocat = ImageGenerator.getInstance(IMAGE_OCTOCAT);
             DocumentGenerator.addDocument(document, octocat);
@@ -41,7 +41,7 @@ public class InsertAnImageInPdf {
         } catch (Exception e) {
             System.out.println("Exception e " + e.getMessage());
         } finally {
-            DocumentGenerator.closeDocument();
+            DocumentGenerator.closeDocument(document);
         }
     }
 
